@@ -6,6 +6,7 @@ from glob import glob
 from datetime import datetime, timedelta
 import os
 from osgeo import gdal, osr
+import numpy as np
 
 class spiutility(QtWidgets.QMainWindow):
     def __init__(self):
@@ -19,6 +20,11 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton.clicked.connect(self.data_prep_get_output_dir)   #Output Data Directory Browse Button
         self.ui.pushButton_2.clicked.connect(self.data_prep_check_data)     #Check Data Button
         self.ui.pushButton_4.clicked.connect(self.data_prep_generate_monthly_comp)  #Generate Monthly Composite Button
+
+        #Event Connections for Page - SPI Calculation
+        self.ui.pushButton_9.clicked.connect(self.spi_calc_browse_monthly_comp_dir)   #Browse for Monthly Composites Folder Button
+        self.ui.pushButton_10.clicked.connect(self.spi_calc_browse_output_dir)   #Browse for Output Folder Button
+        self.ui.pushButton_3.clicked.connect(self.spi_calc_generate_spi)   #Generate SPI Button
         
     def data_prep_get_input_dir(self):
         dlgx = QFileDialog()
@@ -75,7 +81,7 @@ class spiutility(QtWidgets.QMainWindow):
                 
                 erroryear = list()
                 errordate = list()
-                fileslist = glob(datadir + "/*.tif")
+                fileslist = glob(os.path.join(datadir, "*.tif"))
                 if(os.path.exists(outputdir)==False):
                     os.mkdir(outputdir)
                 #---------Check if Datadir, startyear and endyear are correct----------
@@ -241,7 +247,7 @@ class spiutility(QtWidgets.QMainWindow):
                     
                     driver = gdal.GetDriverByName("GTiff")
 
-                    fn = os.path.join(outdir, "RF_{}_{}.tif".format(year, month))
+                    fn = os.path.join(outdir, "RF_{}_{}.tif".format(year, month)) if month > 9 else os.path.join(outdir, "RF_{}_0{}.tif".format(year, month))
                     outRaster = driver.Create(fn, cols,rows, 1 , gdal.GDT_Float32,)
                     outRaster.SetGeoTransform((originX, pixelw, 0, originY, 0, pixelh))
                     outRaster.GetRasterBand(1).WriteArray(rasterArray)
@@ -292,7 +298,283 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton_7.setEnabled(True)
         self.ui.pushButton_5.setEnabled(True)
 
+    def spi_calc_browse_monthly_comp_dir(self):
+        dlgx = QFileDialog()
+        dlgx.setFileMode(QFileDialog.Directory)
+        if dlgx.exec_():
+            filenames = dlgx.selectedFiles()
+            self.ui.lineEdit_7.setText(str(filenames[0]))
+
+    def spi_calc_browse_output_dir(self):
+        dlgx = QFileDialog()
+        dlgx.setFileMode(QFileDialog.Directory)
+        if dlgx.exec_():
+            filenames = dlgx.selectedFiles()
+            self.ui.lineEdit_8.setText(str(filenames[0]))
             
+    def spi_calc_generate_spi(self):
+        #Disable some of the form controls while this function runs
+        self.ui.pushButton_3.setEnabled(False)
+        self.ui.pushButton.setEnabled(False)
+        self.ui.pushButton1.setEnabled(False)
+        self.ui.pushButton_2.setEnabled(False)
+        self.ui.pushButton_4.setEnabled(False)
+        self.ui.pushButton_9.setEnabled(False)
+        self.ui.pushButton_10.setEnabled(False)
+        self.ui.pushButton_6.setEnabled(False)
+        self.ui.pushButton_7.setEnabled(False)
+        self.ui.pushButton_5.setEnabled(False)
+
+        #Get Inputs
+        ts = self.ui.comboBox.text()
+        acc_period = self.ui.comboBox_6.text()
+        stm_x = self.ui.comboBox_2.currentText()
+        if(stm_x == 'January'):
+            stm = 1
+        elif(stm_x == 'February'):
+            stm = 2
+        elif(stm_x == 'March'):
+            stm = 3
+        elif(stm_x == 'April'):
+            stm = 4
+        elif(stm_x == 'May'):
+            stm = 5
+        elif(stm_x == 'June'):
+            stm = 6
+        elif(stm_x == 'July'):
+            stm = 7
+        elif(stm_x == 'August'):
+            stm = 8
+        elif(stm_x == 'September'):
+            stm = 9
+        elif(stm_x == 'October'):
+            stm = 10
+        elif(stm_x == 'November'):
+            stm = 11
+        elif(stm_x == 'December'):
+            stm = 12
+        
+        enm_x = self.ui.comboBox_3.currentText()
+        if(enm_x == 'January'):
+            enm = 1
+        elif(enm_x == 'February'):
+            enm = 2
+        elif(enm_x == 'March'):
+            enm = 3
+        elif(enm_x == 'April'):
+            enm = 4
+        elif(enm_x == 'May'):
+            enm = 5
+        elif(enm_x == 'June'):
+            enm = 6
+        elif(enm_x == 'July'):
+            enm = 7
+        elif(enm_x == 'August'):
+            enm = 8
+        elif(enm_x == 'September'):
+            enm = 9
+        elif(enm_x == 'October'):
+            enm = 10
+        elif(enm_x == 'November'):
+            enm = 11
+        elif(enm_x == 'December'):
+            enm = 12
+
+        #Error flag------------------------------------------------------------
+        is_err = 0
+        errorlist = []
+        
+        
+        monthly_comp_fol = self.ui.lineEdit_7.text()
+        output_fol = self.ui.lineEdit_8.text()
+       
+        if(monthly_comp_fol == ""):
+            is_err = 1
+            errorlist.append("Monthly Composites Folder can not be left blank.")
+        
+        if(output_fol == ""):
+            is_err = 1
+            errorlist.append("Output Folder can not be left blank.")
+        
+        if(os.path.exists(output_fol)==False):
+            is_err = 1
+            errorlist.append("Output path does not exist.")
+        
+        flistcheck = glob(os.path.join(monthly_comp_fol, "*.tif"))
+        if(len(flistcheck)==0):
+            is_err = 1
+            errorlist.append("No files found in the input precipitation directory.")
+
+        try:
+            ts = int(ts)
+        except:
+            is_err = 1
+            errorlist.append("Time scale needs to be an integer")
+
+        try:
+            acc_period = int(acc_period)
+        except:
+            is_err = 1
+            errorlist.append("Accumulation Period needs to be an integer")
+
+        #----------------------------------------------------------------------
+
+        if(is_err==1):
+            self.ui.textEdit.append("<font color=red><b>The following errors are found.</b><ul>")
+            error_list_contents_html = '<ul>'
+            for e in errorlist:
+                error_list_contents_html = error_list_contents_html + "<li>{}</li>".format(e)
+            error_list_contents_html = error_list_contents_html + '</ul>'
+            self.ui.textEdit.append(error_list_contents_html)
+            self.ui.pushButton_3.setEnabled(True)
+        else:
+            w = QWidget()
+            messagee = 'The following parameters are selected.' + '\nMonthly Composites Folder : ' + str(monthly_comp_fol) + '\nOutput Folder : ' + str(output_fol) + '\nTimescale : ' + str(self.ui.comboBox.text()) + ' months \nAccumulation Period : ' + str(self.ui.comboBox_6.text()) + " months \nStart month : " + str(self.ui.comboBox_2.currentText()) + "\nEnd month : " + str(self.ui.comboBox_3.currentText()) + '\n\nGenerate SPI for the specified duration? '
+            reply = QMessageBox.question(w, 'Continue?',messagee, QMessageBox.Yes, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                if(os.path.exists(os.path.join(output_fol, "spivals"))==False):
+                    os.mkdir(os.path.join(output_fol, "spivals"))
+                if(os.path.exists(os.path.join(output_fol, "spivals", str(ts)))==False):
+                    os.mkdir(os.path.join(output_fol, "spivals", str(ts)))
+                if(os.path.exists(os.path.join(output_fol, "spivals", str(ts), 'composite'))==False):
+                    os.mkdir(os.path.join(output_fol, "spivals", str(ts), 'composite'))
+                if(os.path.exists(os.path.join(output_fol, "accumulation"))==False):
+                    os.mkdir(os.path.join(output_fol, "accumulation"))
+                if(os.path.exists(os.path.join(output_fol, "accumulation", str(acc_period)))==False):
+                    os.mkdir(os.path.join(output_fol, "accumulation", str(acc_period)))
+                
+
+
+                yearbegin = int(os.path.basename(flistcheck[0]).split('_')[1])
+                yearend = int(os.path.basename(flistcheck[-1]).split('_')[1])
+
+                #Mask Generation
+                rasterinit = gdal.Open(flistcheck[0])
+                self.ui.textEdit.append("<hr><font color=blue><b>Mask Generation Started...</b></font>")
+
+                maskarr = np.array(rasterinit.ReadAsArray())
+                maskarr = np.where(maskarr >= 0, 1, 0)
+
+                maskgeotransform = rasterinit.GetGeoTransform()
+                maskoriginX = maskgeotransform[0]
+                maskoriginY = maskgeotransform[3]
+                maskpixelw = maskgeotransform[1]
+                maskpixelh = maskgeotransform[5]
+                maskdriver = gdal.GetDriverByName("GTiff")
+                maskfn = os.path.join(output_fol,'mask.tif')
+                maskoutRaster = maskdriver.Create(maskfn, maskarr.shape[1],maskarr.shape[0], 1 , gdal.GDT_Float32,)
+                maskoutRaster.SetGeoTransform((maskoriginX, maskpixelw, 0, maskoriginY, 0, maskpixelh))
+                maskoutRaster.GetRasterBand(1).WriteArray(maskarr)
+                maskoutRasterSRS = osr.SpatialReference()
+                maskoutRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
+                maskoutRaster.SetProjection(maskoutRasterSRS.ExportToWkt())
+                maskoutRaster.FlushCache()
+                self.ui.textEdit.append("<font color=green><b>Mask Generated</b></font>")
+                QApplication.processEvents()
+
+                #--------------------------------------------------------------------------------------------------------------
+                #Calculating Accumulations
+                #--------------------------------------------------------------------------------------------------------------
+                self.ui.textEdit.append("<hr><font color=blue><b>Generating accumulation rasters...</b></font>")
+
+                #Reset Progress Bar
+                progval = 0
+                perinc = 100.0 / (len(flistcheck) - acc_period - 1)
+                self.ui.progressBar.setValue(progval)
+
+                for i in range(acc_period-1, len(flistcheck)):
+                    accarr = 0
+                    for f in range(i - acc_period + 1, i + 1):
+                        accarr = accarr + np.array(gdal.Open(flistcheck[f]).ReadAsArray())
+                    
+                    accarr = np.where(maskarr == 1, accarr, -66635)
+
+                    accfn = os.path.join(output_fol,'accumulation',str(acc_period),os.path.basename(flistcheck[i]))
+                    outRaster = maskdriver.Create(accfn, accarr.shape[1],accarr.shape[0], 1 , gdal.GDT_Float32,)
+                    outRaster.SetGeoTransform((maskoriginX, maskpixelw, 0, maskoriginY, 0, maskpixelh))
+                    outRaster.GetRasterBand(1).WriteArray(accarr)
+                    outRasterSRS = osr.SpatialReference()
+                    outRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
+                    outRaster.SetProjection(outRasterSRS.ExportToWkt())
+                    outRaster.FlushCache()
+
+                    #Update the progress bar
+                    QApplication.processEvents() 
+                    progval = progval + perinc
+                    self.ui.progressBar.setValue(progval)
+                    QApplication.processEvents()
+                
+                #Reset Progress Bar
+                progval = 0
+                self.ui.progressBar.setValue(progval)
+                self.ui.textEdit.append("<font color=green><b>Accumulation rasters generated.</b></font>")
+                #--------------------------------------------------------------------------------------------------------------
+
+                #--------------------------------------------------------------------------------------------------------------
+                #Generating Composites for SPI
+                #--------------------------------------------------------------------------------------------------------------
+                months = ['01','02','03','04','05','06','07','08','09','10','11','12'] * 2
+                
+                composite_month_list = []
+
+                if(stm < enm):
+                    for i in range(stm - 1, enm - ts + 1):
+                        composite_month_list.append(months[i:i+ts])
+                        is_multiyear = False 
+                elif(stm > enm):
+                    for i in range(stm - 1, 12 + enm - ts + 1):
+                        composite_month_list.append(months[i:i+ts])
+                        is_multiyear = True
+                else:
+                    composite_month_list.append(months[stm - 1])
+                    is_multiyear = False
+
+                self.ui.textEdit.append("<hr><font color=blue><b>Generating Composites...</b></font>")
+
+                #Reset Progress Bar
+                progval = 0
+                perinc = 100.0 / ((yearend - yearbegin + 1) * len(composite_month_list))
+                self.ui.progressBar.setValue(progval)
+
+                for y in range(yearbegin, yearend + 1):
+                    for com in composite_month_list:
+                        comparr = 0
+                        curyr = y
+                        for c in com:
+                            if(is_multiyear and c == '01'):
+                                curyr = curyr + 1
+                            if(os.path.exists(os.path.join(output_fol,'accumulation',str(acc_period),"RF_{}_{}.tif".format(curyr,c)))):
+                                comparr = comparr + np.array(gdal.Open(os.path.join(output_fol,'accumulation',str(acc_period),"RF_{}_{}.tif".format(curyr,c))).ReadAsArray())
+
+                        comparr = np.where(maskarr == 1, comparr, -66635)
+
+                        compfn = os.path.join(output_fol,'spivals',str(ts),'composite','RF_{}_{}_{}_{}.tif'.format(y, curyr, com[0], com[-1])) if is_multiyear else os.path.join(output_fol,'spivals',str(ts),'composite','RF_{}_{}_{}.tif'.format(y,com[0], com[-1]))
+                        outRaster = maskdriver.Create(compfn, accarr.shape[1],accarr.shape[0], 1 , gdal.GDT_Float32,)
+                        outRaster.SetGeoTransform((maskoriginX, maskpixelw, 0, maskoriginY, 0, maskpixelh))
+                        outRaster.GetRasterBand(1).WriteArray(comparr)
+                        outRasterSRS = osr.SpatialReference()
+                        outRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
+                        outRaster.SetProjection(outRasterSRS.ExportToWkt())
+                        outRaster.FlushCache()
+                    
+
+
+ 
+                
+
+
+
+
+
+
+
+
+                
+                
+
+        
+
 
 #Code to initiate and run the App
 app = QtWidgets.QApplication([])
