@@ -39,9 +39,11 @@ class Ui_SPIUtilityDialogBase(object):
         self.label.setObjectName("label")
         self.lineEdit = QtWidgets.QLineEdit(self.tab)
         self.lineEdit.setGeometry(QtCore.QRect(20, 50, 451, 31))
+        self.lineEdit.setToolTip("")
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton1 = QtWidgets.QPushButton(self.tab)
         self.pushButton1.setGeometry(QtCore.QRect(470, 50, 31, 31))
+        self.pushButton1.setToolTip("")
         self.pushButton1.setObjectName("pushButton1")
         self.label_2 = QtWidgets.QLabel(self.tab)
         self.label_2.setGeometry(QtCore.QRect(20, 100, 231, 16))
@@ -51,9 +53,11 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_2.setObjectName("label_2")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.tab)
         self.lineEdit_2.setGeometry(QtCore.QRect(20, 130, 451, 31))
+        self.lineEdit_2.setToolTip("")
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.pushButton = QtWidgets.QPushButton(self.tab)
         self.pushButton.setGeometry(QtCore.QRect(470, 130, 31, 31))
+        self.pushButton.setToolTip("")
         self.pushButton.setObjectName("pushButton")
         self.label_3 = QtWidgets.QLabel(self.tab)
         self.label_3.setGeometry(QtCore.QRect(20, 200, 231, 16))
@@ -63,6 +67,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_3.setObjectName("label_3")
         self.lineEdit_3 = QtWidgets.QLineEdit(self.tab)
         self.lineEdit_3.setGeometry(QtCore.QRect(112, 194, 113, 31))
+        self.lineEdit_3.setToolTip("")
         self.lineEdit_3.setInputMethodHints(QtCore.Qt.ImhDigitsOnly)
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.label_4 = QtWidgets.QLabel(self.tab)
@@ -73,6 +78,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_4.setObjectName("label_4")
         self.lineEdit_4 = QtWidgets.QLineEdit(self.tab)
         self.lineEdit_4.setGeometry(QtCore.QRect(358, 194, 113, 31))
+        self.lineEdit_4.setToolTip("")
         self.lineEdit_4.setInputMethodHints(QtCore.Qt.ImhDigitsOnly)
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.pushButton_2 = QtWidgets.QPushButton(self.tab)
@@ -80,6 +86,7 @@ class Ui_SPIUtilityDialogBase(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.pushButton_2.setFont(font)
+        self.pushButton_2.setToolTip("")
         self.pushButton_2.setDefault(True)
         self.pushButton_2.setFlat(False)
         self.pushButton_2.setObjectName("pushButton_2")
@@ -89,6 +96,7 @@ class Ui_SPIUtilityDialogBase(object):
         font = QtGui.QFont()
         font.setPointSize(8)
         self.pushButton_4.setFont(font)
+        self.pushButton_4.setToolTip("")
         self.pushButton_4.setDefault(False)
         self.pushButton_4.setFlat(False)
         self.pushButton_4.setObjectName("pushButton_4")
@@ -112,19 +120,8 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_22 = QtWidgets.QLabel(self.tab_3)
         self.label_22.setGeometry(QtCore.QRect(20, 14, 181, 16))
         self.label_22.setObjectName("label_22")
-        self.comboBox = QtWidgets.QComboBox(self.tab_3)
-        self.comboBox.setGeometry(QtCore.QRect(112, 154, 221, 31))
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
         self.label_7 = QtWidgets.QLabel(self.tab_3)
-        self.label_7.setGeometry(QtCore.QRect(20, 161, 91, 16))
+        self.label_7.setGeometry(QtCore.QRect(20, 166, 131, 16))
         self.label_7.setObjectName("label_7")
         self.comboBox_2 = QtWidgets.QComboBox(self.tab_3)
         self.comboBox_2.setGeometry(QtCore.QRect(112, 210, 121, 31))
@@ -142,7 +139,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.comboBox_3 = QtWidgets.QComboBox(self.tab_3)
-        self.comboBox_3.setGeometry(QtCore.QRect(346, 210, 121, 31))
+        self.comboBox_3.setGeometry(QtCore.QRect(332, 210, 121, 31))
         self.comboBox_3.setObjectName("comboBox_3")
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
@@ -157,7 +154,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.comboBox_3.addItem("")
         self.comboBox_3.addItem("")
         self.label_12 = QtWidgets.QLabel(self.tab_3)
-        self.label_12.setGeometry(QtCore.QRect(272, 216, 71, 20))
+        self.label_12.setGeometry(QtCore.QRect(246, 216, 71, 20))
         self.label_12.setObjectName("label_12")
         self.label_11 = QtWidgets.QLabel(self.tab_3)
         self.label_11.setGeometry(QtCore.QRect(22, 217, 81, 16))
@@ -176,11 +173,23 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_23 = QtWidgets.QLabel(self.tab_3)
         self.label_23.setGeometry(QtCore.QRect(20, 80, 181, 20))
         self.label_23.setObjectName("label_23")
+        self.comboBox = QtWidgets.QLineEdit(self.tab_3)
+        self.comboBox.setGeometry(QtCore.QRect(153, 159, 81, 31))
+        self.comboBox.setObjectName("comboBox")
+        self.label_8 = QtWidgets.QLabel(self.tab_3)
+        self.label_8.setGeometry(QtCore.QRect(240, 165, 191, 16))
+        self.label_8.setObjectName("label_8")
+        self.comboBox_6 = QtWidgets.QLineEdit(self.tab_3)
+        self.comboBox_6.setGeometry(QtCore.QRect(420, 158, 81, 31))
+        self.comboBox_6.setObjectName("comboBox_6")
         self.tabWidget.addTab(self.tab_3, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.tableWidget = QtWidgets.QTableWidget(self.tab_2)
         self.tableWidget.setGeometry(QtCore.QRect(11, 96, 491, 171))
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setRowCount(30)
@@ -404,58 +413,12 @@ class Ui_SPIUtilityDialogBase(object):
         _translate = QtCore.QCoreApplication.translate
         SPIUtilityDialogBase.setWindowTitle(_translate("SPIUtilityDialogBase", "SPI Utility"))
         self.label.setText(_translate("SPIUtilityDialogBase", "Input Precipitation Data Directory :"))
-        self.lineEdit.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Input Precipitation Data Directory</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Select the folder where precipitation data is stored. The detailed format for the precipitation data can be found in the documentation.</p></body></html>"))
-        self.pushButton1.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Browse for folder..</p></body></html>"))
         self.pushButton1.setText(_translate("SPIUtilityDialogBase", "..."))
         self.label_2.setText(_translate("SPIUtilityDialogBase", "Output Data Directory :"))
-        self.lineEdit_2.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Output Data Directory</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Select the folder where all the outputs of all the operatons perfromed via this plugin will be stored. The exact path of each operation output will be displayed in the log.</p></body></html>"))
-        self.pushButton.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Browse for folder..</p></body></html>"))
         self.pushButton.setText(_translate("SPIUtilityDialogBase", "..."))
         self.label_3.setText(_translate("SPIUtilityDialogBase", "Start Year :"))
-        self.lineEdit_3.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Start Year</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">The start year of the precipitation data provided.</p></body></html>"))
         self.label_4.setText(_translate("SPIUtilityDialogBase", "End Year :"))
-        self.lineEdit_4.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">End Year</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">The end year of the precipitation data provided.</p></body></html>"))
-        self.pushButton_2.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Check Data</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This option checks the presence of data in the user-provided Data Directory.</p></body></html>"))
         self.pushButton_2.setText(_translate("SPIUtilityDialogBase", "Check Data"))
-        self.pushButton_4.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Generate Monthly Composite</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">This generates the monthly precipitation composites from the input daily precipitation data.</p></body></html>"))
         self.pushButton_4.setText(_translate("SPIUtilityDialogBase", "Generate Monthly Composite"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("SPIUtilityDialogBase", "Data Preparation"))
         self.label_6.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -469,15 +432,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.pushButton_8.setText(_translate("SPIUtilityDialogBase", "PushButton"))
         self.pushButton_9.setText(_translate("SPIUtilityDialogBase", "..."))
         self.label_22.setText(_translate("SPIUtilityDialogBase", "Monthly composites folder :"))
-        self.comboBox.setItemText(0, _translate("SPIUtilityDialogBase", "1 month"))
-        self.comboBox.setItemText(1, _translate("SPIUtilityDialogBase", "3 months"))
-        self.comboBox.setItemText(2, _translate("SPIUtilityDialogBase", "4 months"))
-        self.comboBox.setItemText(3, _translate("SPIUtilityDialogBase", "6 months"))
-        self.comboBox.setItemText(4, _translate("SPIUtilityDialogBase", "9 months"))
-        self.comboBox.setItemText(5, _translate("SPIUtilityDialogBase", "12 months"))
-        self.comboBox.setItemText(6, _translate("SPIUtilityDialogBase", "24 months"))
-        self.comboBox.setItemText(7, _translate("SPIUtilityDialogBase", "36 months"))
-        self.label_7.setText(_translate("SPIUtilityDialogBase", "Time Scale : "))
+        self.label_7.setText(_translate("SPIUtilityDialogBase", "Time Scale (months): "))
         self.comboBox_2.setItemText(0, _translate("SPIUtilityDialogBase", "January"))
         self.comboBox_2.setItemText(1, _translate("SPIUtilityDialogBase", "February"))
         self.comboBox_2.setItemText(2, _translate("SPIUtilityDialogBase", "March"))
@@ -507,6 +462,11 @@ class Ui_SPIUtilityDialogBase(object):
         self.pushButton_3.setText(_translate("SPIUtilityDialogBase", "Generate SPI"))
         self.pushButton_10.setText(_translate("SPIUtilityDialogBase", "..."))
         self.label_23.setText(_translate("SPIUtilityDialogBase", "Output folder :"))
+        self.comboBox.setToolTip(_translate("SPIUtilityDialogBase", "<html><head/><body><p>Timescale (months) should have an integer value.</p></body></html>"))
+        self.comboBox.setText(_translate("SPIUtilityDialogBase", "1"))
+        self.label_8.setText(_translate("SPIUtilityDialogBase", "Accumulation Period (months): "))
+        self.comboBox_6.setToolTip(_translate("SPIUtilityDialogBase", "<html><head/><body><p>Accumulation Period (months) should have an integer value between <span style=\" font-weight:600; color:#ff0000;\">1-60</span>.</p></body></html>"))
+        self.comboBox_6.setText(_translate("SPIUtilityDialogBase", "1"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("SPIUtilityDialogBase", "SPI Calculation"))
         item = self.tableWidget.verticalHeaderItem(0)
         item.setText(_translate("SPIUtilityDialogBase", "1"))
@@ -643,9 +603,8 @@ class Ui_SPIUtilityDialogBase(object):
         self.textEdit.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">Log</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Log displays the current activities and notes which will be useful while usng this plugin.</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>"))
         self.textEdit.setHtml(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
