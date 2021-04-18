@@ -43,7 +43,7 @@
    <property name="font">
     <font>
      <family>Tahoma</family>
-     <pointsize>10</pointsize>
+     <pointsize>8</pointsize>
     </font>
    </property>
    <property name="currentIndex">
@@ -67,6 +67,11 @@
        <width>231</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
      </property>
      <property name="text">
       <string>Input Precipitation Data Directory :</string>
@@ -119,6 +124,11 @@ p, li { white-space: pre-wrap; }
        <height>16</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Output Data Directory :</string>
      </property>
@@ -170,6 +180,11 @@ p, li { white-space: pre-wrap; }
        <height>16</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>Start Year :</string>
      </property>
@@ -204,6 +219,11 @@ p, li { white-space: pre-wrap; }
        <height>16</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>End Year :</string>
      </property>
@@ -232,11 +252,16 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>180</x>
        <y>250</y>
        <width>111</width>
        <height>51</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
      </property>
      <property name="toolTip">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -262,11 +287,16 @@ p, li { white-space: pre-wrap; }
      </property>
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>300</x>
        <y>250</y>
-       <width>111</width>
+       <width>201</width>
        <height>51</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
      </property>
      <property name="toolTip">
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -277,8 +307,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This generates the monthly precipitation composites from the input daily precipitation data.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="text">
-      <string>Generate Monthly
-Composite</string>
+      <string>Generate Monthly Composite</string>
      </property>
      <property name="default">
       <bool>false</bool>
@@ -1113,20 +1142,26 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>16</x>
-     <y>12</y>
-     <width>501</width>
-     <height>31</height>
+     <x>-24</x>
+     <y>-8</y>
+     <width>971</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>Segoe UI</family>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(87, 143, 202, 255), stop:1 rgba(255, 255, 255, 255));
+padding-left: auto;
+padding-top: 10px;</string>
+   </property>
    <property name="text">
-    <string>Standardized Precipitation Index Utility for Raster</string>
+    <string>Standardized Precipitation Index Utility (Raster Mode)</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="textEdit">
@@ -1159,16 +1194,16 @@ p, li { white-space: pre-wrap; }
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Start with setting Input Precipitation Data Directory, Output Directory, Start Year and End Year. Then click on &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Check Data&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Note &lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;: The input precipitation data must satisfy the following conditions:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1. The Annual Precipitation data should be in&lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt; *.tif&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; format with daily rainfall data as its bands.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2. The precipitation rasters &lt;/span&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;must be georeferenced&lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3. The dimensions (Rows and Columns) must be same for all the precipitation rasters.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Note &lt;/span&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;: It is recommended that the output folder path should not have any subfolders and files.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#5500ff;&quot;&gt;For more information, refer the &lt;/span&gt;&lt;a href=&quot;../Documentation.html&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#5500ff;&quot;&gt;Documentation&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt; color:#5500ff;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;hr /&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
@@ -1179,7 +1214,7 @@ p, li { white-space: pre-wrap; }
      <x>540</x>
      <y>60</y>
      <width>46</width>
-     <height>13</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
