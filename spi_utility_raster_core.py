@@ -29,7 +29,10 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.spi_calc_generate_spi)   #Generate SPI Button
 
         #Event Connections for Page - Analysis
-        
+        self.ui.pushButton_6.clicked.connect(self.analysis_folder_of_SPI_values)   #Browse for folder of SPI values button
+        self.ui.pushButton_7.clicked.connect(self.analysis_output_folder)   #Browse for output folder button
+        self.ui.pushButton_5.clicked.connect(self.analysis_classify)   #Classify Button
+
         
     def data_prep_get_input_dir(self):
         dlgx = QFileDialog()
@@ -184,7 +187,6 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton.setEnabled(True)
         self.ui.pushButton1.setEnabled(True)
         self.ui.pushButton_2.setEnabled(True)
-        self.ui.pushButton_4.setEnabled(True)
         self.ui.pushButton_9.setEnabled(True)
         self.ui.pushButton_10.setEnabled(True)
         self.ui.pushButton_6.setEnabled(True)
@@ -685,7 +687,229 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton_7.setEnabled(True)
         self.ui.pushButton_5.setEnabled(True)
 
+    def analysis_folder_of_SPI_values(self):
+        dlgx = QFileDialog()
+        dlgx.setFileMode(QFileDialog.Directory)
+
+        if dlgx.exec_():
+            filenames = dlgx.selectedFiles()
+            self.ui.lineEdit_5.setText(str(filenames[0]))
+
+        filepath = self.ui.lineEdit_5.text()
+        fileslista = glob(os.path.join(filepath, "SPI_*.tif"))
+        
+        
+        if(len(fileslista)==0):
+            self.ui.textEdit.append("<font color = red>No supported files found in the directory!!!</font>")
+            
+        
+        else:
+            self.ui.comboBox_4.clear()
+            self.ui.comboBox_5.clear()
+            #first files year count
+            yearb = fileslista[0][(len(filepath)+1):]
+            yeare = fileslista[len(fileslista)-1][(len(filepath)+1):] 
+            yearb = yearb[4:8]
+            yeare = yeare[4:8]
+            x = int(yearb)
+            y = int(yeare)
+            while(x<=y):
+                self.ui.comboBox_4.addItem(str(x))
+                self.ui.comboBox_5.addItem(str(x))
+                x = x + 1
+            
+             
+            self.ui.pushButton_5.setEnabled(True)                   
+
+    def analysis_output_folder(self):
+        dlgx = QFileDialog()
+        dlgx.setFileMode(QFileDialog.Directory)
+        
+        if dlgx.exec_():
+            filenames = dlgx.selectedFiles()
+            self.ui.lineEdit_6.setText(str(filenames[0]))
+
+        outpath = self.ui.lineEdit_6.text()
+        if(os.path.exists(outpath)==False):
+            self.dlg.textEdit.append("<font color=red>Output folder not found.</font>")
+
+    def analysis_classify(self):
+        w = QWidget()
+        messagee = 'Continue analysis with the provided parameters? '
+        reply = QMessageBox.question(w, 'Continue?',messagee, QMessageBox.Yes, QMessageBox.No)
+        
+        if reply == QMessageBox.Yes:
+        
+            self.ui.pushButton_3.setEnabled(False)
+            self.ui.pushButton.setEnabled(False)
+            self.ui.pushButton1.setEnabled(False)
+            self.ui.pushButton_2.setEnabled(False)
+            self.ui.pushButton_4.setEnabled(False)
+            self.ui.pushButton_9.setEnabled(False)
+            self.ui.pushButton_10.setEnabled(False)
+            self.ui.pushButton_6.setEnabled(False)
+            self.ui.pushButton_7.setEnabled(False)
+            self.ui.pushButton_5.setEnabled(False)
+            currange = []
+            ranges = []
+            crows = self.ui.tableWidget.rowCount()
+            
+            anyerror = 0
+            xy = 0
+            while(xy<crows):
+                currange = []
+                namev = self.ui.tableWidget.item(xy, 0)
+                lval = self.ui.tableWidget.item(xy, 2)
+                hval = self.ui.tableWidget.item(xy, 1)
+                if((namev is None) == False):
+                    if(float(hval.text())>=float(lval.text())):
+                        if(namev.text() != ''):
+                            currange.append(float(hval.text()))
+                            currange.append(float(lval.text()))
+                            currange.append(namev.text())
+                            ranges.append(currange)
+                        
+                    else:
+                        
+                        self.ui.textEdit.append("<font color = red><b>Error in row : " + str(xy + 1) + " </b>: Upper Limit should be greater than Lower Limit. </font>")
+                        anyerror = 1
+                xy = xy + 1
+                
+            if(anyerror ==1):
+                self.ui.textEdit.append("<font color = red><b>One or more errors are found. Can not Classify.</font></b>")
+            
+            else:
+                t1 = datetime.now()
+                outpath = self.ui.lineEdit_6.text()
+                filepath = self.ui.lineEdit_5.text()
+                fileslistx = glob(os.path.join(filepath, "*.tif"))
+                
+                
+                
+                anals = self.ui.comboBox_4.currentIndex()
+                anale = self.ui.comboBox_5.currentIndex()
+                
+                fileslista = fileslistx[anals:(anale+1)]
+                
+                progval = 0.0
+                proginc = 100.0 / (len(ranges) * 2)
+                
+                cur_raster = gdal.Open(fileslista[0])
+                rows = cur_raster.RasterYSize
+                cols = cur_raster.RasterXSize
+                
+                cur_raster = 0
+                
+                cat = 0
+                while(cat<len(ranges)):
+            
+                    result = np.zeros((rows,cols))
+                    result_cur = np.zeros((rows,cols))
+                    a = 0
+                    while(a<len(fileslista)):
+                        result_cur = np.zeros((rows,cols))
+                        cur_raster = gdal.Open(fileslista[a])
+                        cur_array1 = cur_raster.ReadAsArray()
+                        cur_arr = np.array(cur_array1)
+                        
+                        rows = cur_raster.RasterYSize
+                        cols = cur_raster.RasterXSize
+                        r = 0
+                        c = 0
+                        while(r<rows):
+                            c = 0
+                            while(c<cols):
+                                
+                                if((cur_arr[r][c]>=ranges[cat][1]) and (cur_arr[r][c]<=ranges[cat][0])):
+                                    
+                                    result_cur[r][c] = 1
+                                    
+                                else:
+                                    
+                                    result_cur[r][c] = 0
+                                        
+                                c = c + 1
+                            r = r + 1
+                        
+                        
+                        result = result + result_cur
+                        
+                        
+                        cur_raster = 0
+                        a = a + 1
+                        
+                    resultx = np.array(result)
+                    prob = resultx / len(fileslista)
+                    #result = np.where(result>=0, result, None)
                     
+                    cur_raster = gdal.Open(fileslista[0])
+                    geotransform = cur_raster.GetGeoTransform()
+                    originX = geotransform[0]
+                    originY = geotransform[3]
+                    pixelw = geotransform[1]
+                    pixelh = geotransform[5]
+                    
+                    driver = gdal.GetDriverByName("GTiff")
+                    fn = os.path.join(outpath, "c_{}.tif".format(ranges[cat][2]))
+                    outRaster = driver.Create(fn, cols,rows, 1 , gdal.GDT_Float32,)
+                    outRaster.SetGeoTransform((originX, pixelw, 0, originY, 0, pixelh))
+                    outRaster.GetRasterBand(1).WriteArray(result)
+                    outRasterSRS = osr.SpatialReference()
+                    outRasterSRS.ImportFromWkt(cur_raster.GetProjectionRef())
+                    outRaster.SetProjection(outRasterSRS.ExportToWkt())
+                    outRaster.FlushCache()
+                    outRaster = 0
+                    cur_raster = 0
+                    self.ui.textEdit.append("<font color = green><b>Count file </b>" + str(fn) + " Generated.</font>")
+                    
+                    progval = progval + proginc
+                    self.ui.progressBar.setValue(progval)
+                    QApplication.processEvents()
+                    
+                    cur_raster = gdal.Open(fileslista[0])
+                    geotransform = cur_raster.GetGeoTransform()
+                    originX = geotransform[0]
+                    originY = geotransform[3]
+                    pixelw = geotransform[1]
+                    pixelh = geotransform[5]
+                    
+                    driver = gdal.GetDriverByName("GTiff")
+                    fn = os.path.join(outpath + "/p_{}.tif".format(ranges[cat][2]))
+                    outRaster = driver.Create(fn, cols,rows, 1 , gdal.GDT_Float32,)
+                    outRaster.SetGeoTransform((originX, pixelw, 0, originY, 0, pixelh))
+                    outRaster.GetRasterBand(1).WriteArray(prob)
+                    outRasterSRS = osr.SpatialReference()
+                    outRasterSRS.ImportFromWkt(cur_raster.GetProjectionRef())
+                    outRaster.SetProjection(outRasterSRS.ExportToWkt())
+                    outRaster.FlushCache()
+                    outRaster = 0
+                    cur_raster = 0
+                    self.ui.textEdit.append("<font color = green><b>Probability file </b>" + str(fn) + " Generated.</font>")
+                    
+                    progval = progval + proginc
+                    self.ui.progressBar.setValue(progval)
+                    QApplication.processEvents()
+                    cat = cat + 1
+                
+                t2 = datetime.now()
+                delta = t2 - t1
+                hrs = delta.seconds // 3600
+                mins = (delta.seconds - (3600*hrs)) // 60
+                secs = delta.seconds - (3600 * hrs) - (60*mins)
+                self.ui.textEdit.append("Time elapsed : " + str(hrs) + " hours " + str(mins)+ " minutes "+ str(secs) + " seconds")
+            
+                self.ui.progressBar.setValue(0)
+                QApplication.processEvents()
+                self.ui.pushButton_3.setEnabled(True)
+                self.ui.pushButton.setEnabled(True)
+                self.ui.pushButton1.setEnabled(True)
+                self.ui.pushButton_2.setEnabled(True)
+                self.ui.pushButton_4.setEnabled(False)
+                self.ui.pushButton_9.setEnabled(True)
+                self.ui.pushButton_10.setEnabled(True)
+                self.ui.pushButton_6.setEnabled(True)
+                self.ui.pushButton_7.setEnabled(True)
+                self.ui.pushButton_5.setEnabled(True)    
 
 #Code to initiate and run the App
 app = QtWidgets.QApplication([])
