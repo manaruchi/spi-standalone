@@ -7,6 +7,8 @@ from datetime import datetime, timedelta
 import os
 from osgeo import gdal, osr
 import numpy as np
+import math
+from scipy.stats import gamma
 
 class spiutility(QtWidgets.QMainWindow):
     def __init__(self):
@@ -25,6 +27,9 @@ class spiutility(QtWidgets.QMainWindow):
         self.ui.pushButton_9.clicked.connect(self.spi_calc_browse_monthly_comp_dir)   #Browse for Monthly Composites Folder Button
         self.ui.pushButton_10.clicked.connect(self.spi_calc_browse_output_dir)   #Browse for Output Folder Button
         self.ui.pushButton_3.clicked.connect(self.spi_calc_generate_spi)   #Generate SPI Button
+
+        #Event Connections for Page - Analysis
+        
         
     def data_prep_get_input_dir(self):
         dlgx = QFileDialog()
@@ -451,7 +456,7 @@ class spiutility(QtWidgets.QMainWindow):
 
                 #Mask Generation
                 rasterinit = gdal.Open(flistcheck[0])
-                self.ui.textEdit.append("<hr><font color=blue><b>Mask Generation Started...</b></font>")
+                self.ui.textEdit.append("<font color=blue>Mask Generation Started...</font>")
 
                 maskarr = np.array(rasterinit.ReadAsArray())
                 maskarr = np.where(maskarr >= 0, 1, 0)
@@ -470,13 +475,13 @@ class spiutility(QtWidgets.QMainWindow):
                 maskoutRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
                 maskoutRaster.SetProjection(maskoutRasterSRS.ExportToWkt())
                 maskoutRaster.FlushCache()
-                self.ui.textEdit.append("<font color=green><b>Mask Generated</b></font>")
+                self.ui.textEdit.append("<font color=green>Mask Generated</font>")
                 QApplication.processEvents()
 
                 #--------------------------------------------------------------------------------------------------------------
                 #Calculating Accumulations
                 #--------------------------------------------------------------------------------------------------------------
-                self.ui.textEdit.append("<hr><font color=blue><b>Generating accumulation rasters...</b></font>")
+                self.ui.textEdit.append("<font color=blue>Generating accumulation rasters...</font>")
 
                 #Reset Progress Bar
                 progval = 0
@@ -508,7 +513,7 @@ class spiutility(QtWidgets.QMainWindow):
                 #Reset Progress Bar
                 progval = 0
                 self.ui.progressBar.setValue(progval)
-                self.ui.textEdit.append("<font color=green><b>Accumulation rasters generated.</b></font>")
+                self.ui.textEdit.append("<font color=green>Accumulation rasters generated.</font>")
                 #--------------------------------------------------------------------------------------------------------------
 
                 #--------------------------------------------------------------------------------------------------------------
@@ -530,7 +535,7 @@ class spiutility(QtWidgets.QMainWindow):
                     composite_month_list.append(months[stm - 1])
                     is_multiyear = False
 
-                self.ui.textEdit.append("<hr><font color=blue><b>Generating Composites...</b></font>")
+                self.ui.textEdit.append("<font color=blue>Generating Composites...</font>")
 
                 #Reset Progress Bar
                 progval = 0
@@ -557,24 +562,130 @@ class spiutility(QtWidgets.QMainWindow):
                         outRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
                         outRaster.SetProjection(outRasterSRS.ExportToWkt())
                         outRaster.FlushCache()
-                    
 
+                        #Update the progress bar
+                        QApplication.processEvents() 
+                        progval = progval + perinc
+                        self.ui.progressBar.setValue(progval)
+                        QApplication.processEvents()
 
- 
+                #Reset Progress Bar
+                progval = 0
+                self.ui.progressBar.setValue(progval)
+                self.ui.textEdit.append("<font color=green>Composite rasters generated.</font>")
+                #--------------------------------------------------------------------------------------------------------------
+
+                #--------------------------------------------------------------------------------------------------------------
+                #SPI Calculation
+                #--------------------------------------------------------------------------------------------------------------
+                self.ui.textEdit.append("<font color=blue>Calculating SPI...</font>")
                 
+                composite_files = glob(os.path.join(output_fol,'spivals',str(ts),'composite', '*.tif'))
 
-
-
-
-
-
-
+                bigarray = []
+                years_list_for_SPI_output = []
 
                 
-                
+                for f in composite_files:
+                    bigarray.append(np.array(gdal.Open(f).ReadAsArray()))
+                    fname = os.path.basename(f)[2:]
+                    years_list_for_SPI_output.append('SPI' + fname)
 
+                bigarray = np.array(bigarray)
+
+                #Reset Progress Bar
+                progval = 0
+                perinc = 100.0 / (bigarray.shape[1] * bigarray.shape[2])
+                self.ui.progressBar.setValue(progval)
+
+                #Core SPI Calculation
+                for r in range(bigarray.shape[1]):
+                    for c in range(bigarray.shape[2]):
+
+                        vals = bigarray[:,r,c]
+
+                        c0 = 2.515517
+                        c1 = 0.802583
+                        c2 = 0.010328
+                        d1 = 1.4327888
+                        d2 = 0.189269
+                        d3 = 0.001308
+
+                        shapex, loc, scalex = gamma.fit(vals[vals > 0], floc=0)
+                        curvale = np.array(gamma.cdf(vals,shapex, scale = scalex))
+                        
+                        q = len(vals[vals == 0]) / len(vals)
+                        
+                        curvale = q + ((1-q) * curvale)
+                        
+                        g_vals = [(np.log(1/(c*c)))**0.5 if c <= 0.5 else (np.log(1/((1-c)*(1-c))))**0.5 for c in curvale]
+                        
+                        g = np.array(g_vals)
+                        
+                        spi_vals = (g-((c0 +c1 * g+ c2 *g*g)/(1+d1*g+d2*g*g+d3*g*g*g)))
+                        
+                        for i in range(len(spi_vals)):
+                            if(curvale[i] <= 0.5):
+                                spi_vals[i] = -1 * spi_vals[i]
+
+                        bigarray[:,r,c] = spi_vals
+
+                        #Update the progress bar
+                        QApplication.processEvents() 
+                        progval = progval + perinc
+                        self.ui.progressBar.setValue(progval)
+                        QApplication.processEvents()
+
+                #Reset Progress Bar
+                progval = 0
+                self.ui.progressBar.setValue(progval)
+                self.ui.textEdit.append("<font color=green>SPI Calculated.</font>")
+
+                #Export Rasters
+                self.ui.textEdit.append("<font color=blue>Exporting Rasters...</font>")
+                
+                #Reset Progress Bar
+                progval = 0
+                perinc = 100.0 / (bigarray.shape[0])
+                self.ui.progressBar.setValue(progval)
+
+                for z in range(bigarray.shape[0]):
+
+                    spiarr = bigarray[z]
+                    spiarr = np.where(maskarr == 1, spiarr, -66635)
+
+                    spifn = os.path.join(output_fol,'spivals',str(ts), '{}.tif'.format(years_list_for_SPI_output[z]))
+                    outRaster = maskdriver.Create(spifn, accarr.shape[1],accarr.shape[0], 1 , gdal.GDT_Float32,)
+                    outRaster.SetGeoTransform((maskoriginX, maskpixelw, 0, maskoriginY, 0, maskpixelh))
+                    outRaster.GetRasterBand(1).WriteArray(spiarr)
+                    outRasterSRS = osr.SpatialReference()
+                    outRasterSRS.ImportFromWkt(rasterinit.GetProjectionRef())
+                    outRaster.SetProjection(outRasterSRS.ExportToWkt())
+                    outRaster.FlushCache()
+
+                    #Update the progress bar
+                    QApplication.processEvents() 
+                    progval = progval + perinc
+                    self.ui.progressBar.setValue(progval)
+                    QApplication.processEvents()
+
+                #Reset Progress Bar
+                progval = 0
+                self.ui.progressBar.setValue(progval)
+                self.ui.textEdit.append("<font color=green>SPI Rasters Exported to {}.</font><hr>".format(os.path.join(output_fol,'spivals',str(ts), )))
         
+        self.ui.pushButton_3.setEnabled(True)
+        self.ui.pushButton.setEnabled(True)
+        self.ui.pushButton1.setEnabled(True)
+        self.ui.pushButton_2.setEnabled(True)
+        self.ui.pushButton_4.setEnabled(False)
+        self.ui.pushButton_9.setEnabled(True)
+        self.ui.pushButton_10.setEnabled(True)
+        self.ui.pushButton_6.setEnabled(True)
+        self.ui.pushButton_7.setEnabled(True)
+        self.ui.pushButton_5.setEnabled(True)
 
+                    
 
 #Code to initiate and run the App
 app = QtWidgets.QApplication([])
