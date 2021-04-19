@@ -22,11 +22,13 @@ class Ui_SPIUtilityDialogBase(object):
         SPIUtilityDialogBase.setMinimumSize(QtCore.QSize(899, 489))
         SPIUtilityDialogBase.setMaximumSize(QtCore.QSize(899, 489))
         self.label_5 = QtWidgets.QLabel(SPIUtilityDialogBase)
-        self.label_5.setGeometry(QtCore.QRect(16, 12, 501, 31))
+        self.label_5.setGeometry(QtCore.QRect(0, 0, 921, 51))
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(14)
         self.label_5.setFont(font)
+        self.label_5.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(19, 202, 202, 255), stop:1 rgba(255, 255, 255, 255));\n"
+"padding-left: 20px;")
         self.label_5.setObjectName("label_5")
         self.progressBar_1 = QtWidgets.QProgressBar(SPIUtilityDialogBase)
         self.progressBar_1.setGeometry(QtCore.QRect(410, 460, 481, 20))
@@ -47,10 +49,7 @@ class Ui_SPIUtilityDialogBase(object):
         self.progressBar_1.setObjectName("progressBar_1")
         self.tabWidget = QtWidgets.QTabWidget(SPIUtilityDialogBase)
         self.tabWidget.setGeometry(QtCore.QRect(10, 60, 391, 421))
-        font = QtGui.QFont()
-        font.setFamily("Tahoma")
-        font.setPointSize(10)
-        self.tabWidget.setFont(font)
+        self.tabWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.India))
         self.tabWidget.setIconSize(QtCore.QSize(16, 24))
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
@@ -91,6 +90,12 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_8 = QtWidgets.QLabel(self.tab)
         self.label_8.setGeometry(QtCore.QRect(10, 440, 471, 16))
         self.label_8.setObjectName("label_8")
+        self.dateEdit = QtWidgets.QDateEdit(self.tab)
+        self.dateEdit.setGeometry(QtCore.QRect(97, 203, 121, 31))
+        self.dateEdit.setObjectName("dateEdit")
+        self.label_16 = QtWidgets.QLabel(self.tab)
+        self.label_16.setGeometry(QtCore.QRect(21, 209, 71, 16))
+        self.label_16.setObjectName("label_16")
         self.tabWidget.addTab(self.tab, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
@@ -108,17 +113,6 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_22 = QtWidgets.QLabel(self.tab_3)
         self.label_22.setGeometry(QtCore.QRect(20, 24, 181, 16))
         self.label_22.setObjectName("label_22")
-        self.comboBox_10 = QtWidgets.QComboBox(self.tab_3)
-        self.comboBox_10.setGeometry(QtCore.QRect(112, 164, 221, 31))
-        self.comboBox_10.setObjectName("comboBox_10")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
-        self.comboBox_10.addItem("")
         self.label_7 = QtWidgets.QLabel(self.tab_3)
         self.label_7.setGeometry(QtCore.QRect(20, 171, 91, 16))
         self.label_7.setObjectName("label_7")
@@ -181,13 +175,18 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_10 = QtWidgets.QLabel(self.tab_3)
         self.label_10.setGeometry(QtCore.QRect(20, 440, 46, 13))
         self.label_10.setObjectName("label_10")
+        self.lineEdit = QtWidgets.QLineEdit(self.tab_3)
+        self.lineEdit.setGeometry(QtCore.QRect(98, 164, 71, 31))
+        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.tab_3)
+        self.lineEdit_2.setGeometry(QtCore.QRect(300, 164, 71, 31))
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.label_15 = QtWidgets.QLabel(self.tab_3)
+        self.label_15.setGeometry(QtCore.QRect(174, 170, 131, 16))
+        self.label_15.setObjectName("label_15")
         self.tabWidget.addTab(self.tab_3, "")
         self.tabWidget_2 = QtWidgets.QTabWidget(SPIUtilityDialogBase)
         self.tabWidget_2.setGeometry(QtCore.QRect(410, 60, 481, 391))
-        font = QtGui.QFont()
-        font.setFamily("Tahoma")
-        font.setPointSize(10)
-        self.tabWidget_2.setFont(font)
         self.tabWidget_2.setTabPosition(QtWidgets.QTabWidget.North)
         self.tabWidget_2.setObjectName("tabWidget_2")
         self.tab_6 = QtWidgets.QWidget()
@@ -199,19 +198,6 @@ class Ui_SPIUtilityDialogBase(object):
         self.textEdit_1.setReadOnly(True)
         self.textEdit_1.setObjectName("textEdit_1")
         self.tabWidget_2.addTab(self.tab_6, "")
-        self.tab_5 = QtWidgets.QWidget()
-        self.tab_5.setObjectName("tab_5")
-        self.comboBox = QtWidgets.QComboBox(self.tab_5)
-        self.comboBox.setGeometry(QtCore.QRect(10, 10, 461, 31))
-        self.comboBox.setObjectName("comboBox")
-        self.tableWidget_3 = QtWidgets.QTableWidget(self.tab_5)
-        self.tableWidget_3.setGeometry(QtCore.QRect(10, 50, 461, 301))
-        self.tableWidget_3.setObjectName("tableWidget_3")
-        self.tableWidget_3.setColumnCount(1)
-        self.tableWidget_3.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget_3.setHorizontalHeaderItem(0, item)
-        self.tabWidget_2.addTab(self.tab_5, "")
         self.label_13 = QtWidgets.QLabel(SPIUtilityDialogBase)
         self.label_13.setGeometry(QtCore.QRect(480, 580, 421, 16))
         self.label_13.setObjectName("label_13")
@@ -237,6 +223,27 @@ class Ui_SPIUtilityDialogBase(object):
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(SPIUtilityDialogBase)
+        SPIUtilityDialogBase.setTabOrder(self.tabWidget, self.lineEdit_10)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit_10, self.pushButton_11)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_11, self.lineEdit_11)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit_11, self.pushButton_12)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_12, self.dateEdit)
+        SPIUtilityDialogBase.setTabOrder(self.dateEdit, self.pushButton_13)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_13, self.pushButton)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton, self.lineEdit_15)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit_15, self.pushButton_9)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_9, self.lineEdit_16)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit_16, self.pushButton_10)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_10, self.lineEdit)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit, self.lineEdit_2)
+        SPIUtilityDialogBase.setTabOrder(self.lineEdit_2, self.comboBox_11)
+        SPIUtilityDialogBase.setTabOrder(self.comboBox_11, self.comboBox_12)
+        SPIUtilityDialogBase.setTabOrder(self.comboBox_12, self.pushButton_3)
+        SPIUtilityDialogBase.setTabOrder(self.pushButton_3, self.textEdit_1)
+        SPIUtilityDialogBase.setTabOrder(self.textEdit_1, self.tabWidget_2)
+        SPIUtilityDialogBase.setTabOrder(self.tabWidget_2, self.tableWidget)
+        SPIUtilityDialogBase.setTabOrder(self.tableWidget, self.tableWidget_2)
+        SPIUtilityDialogBase.setTabOrder(self.tableWidget_2, self.pushButton_8)
 
     def retranslateUi(self, SPIUtilityDialogBase):
         _translate = QtCore.QCoreApplication.translate
@@ -280,6 +287,8 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_3.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
         self.label_4.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
         self.label_8.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
+        self.dateEdit.setDisplayFormat(_translate("SPIUtilityDialogBase", "d/M/yyyy"))
+        self.label_16.setText(_translate("SPIUtilityDialogBase", "Start Date:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("SPIUtilityDialogBase", "Data Preparation"))
         self.label_6.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -291,14 +300,6 @@ class Ui_SPIUtilityDialogBase(object):
         self.label_6.setText(_translate("SPIUtilityDialogBase", "Data Status : Incomplete"))
         self.pushButton_9.setText(_translate("SPIUtilityDialogBase", "..."))
         self.label_22.setText(_translate("SPIUtilityDialogBase", "Monthly composite file :"))
-        self.comboBox_10.setItemText(0, _translate("SPIUtilityDialogBase", "1 month"))
-        self.comboBox_10.setItemText(1, _translate("SPIUtilityDialogBase", "3 months"))
-        self.comboBox_10.setItemText(2, _translate("SPIUtilityDialogBase", "4 months"))
-        self.comboBox_10.setItemText(3, _translate("SPIUtilityDialogBase", "6 months"))
-        self.comboBox_10.setItemText(4, _translate("SPIUtilityDialogBase", "9 months"))
-        self.comboBox_10.setItemText(5, _translate("SPIUtilityDialogBase", "12 months"))
-        self.comboBox_10.setItemText(6, _translate("SPIUtilityDialogBase", "24 months"))
-        self.comboBox_10.setItemText(7, _translate("SPIUtilityDialogBase", "36 months"))
         self.label_7.setText(_translate("SPIUtilityDialogBase", "Time Scale : "))
         self.comboBox_11.setItemText(0, _translate("SPIUtilityDialogBase", "January"))
         self.comboBox_11.setItemText(1, _translate("SPIUtilityDialogBase", "February"))
@@ -332,6 +333,9 @@ class Ui_SPIUtilityDialogBase(object):
         self.pushButton_8.setText(_translate("SPIUtilityDialogBase", "PushButton"))
         self.label_9.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
         self.label_10.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
+        self.lineEdit.setText(_translate("SPIUtilityDialogBase", "1"))
+        self.lineEdit_2.setText(_translate("SPIUtilityDialogBase", "1"))
+        self.label_15.setText(_translate("SPIUtilityDialogBase", "Accumulation Period:"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("SPIUtilityDialogBase", "SPI Calculation"))
         self.textEdit_1.setToolTip(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -342,66 +346,58 @@ class Ui_SPIUtilityDialogBase(object):
         self.textEdit_1.setHtml(_translate("SPIUtilityDialogBase", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Tahoma\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">Start with setting Input Precipitation Data Folder (Folder containing precipitation data in *.csv format)  and Output Folder. Then click on </span><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Check Data</span><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Note </span><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">: The format of data in the CSV file should be like the following:</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8pt;\"></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8pt;\"></p>\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">Start with setting Input Precipitation Data Folder (Folder containing precipitation data in *.csv format)  and Output Folder. Then click on </span><span style=\" font-size:8pt; font-weight:600;\">Check Data</span><span style=\" font-size:8pt;\">.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; font-weight:600;\">Note </span><span style=\" font-size:8pt;\">: The format of data in the CSV file should be like the following:</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p>\n"
 "<table border=\"1\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;\" align=\"center\" cellspacing=\"2\" cellpadding=\"5\">\n"
 "<tr>\n"
+"<td></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Date</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; font-weight:600;\">Point_1</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Point_1</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; font-weight:600;\">Point_2</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Point_2</span></p></td>\n"
-"<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">...</span></p></td></tr>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; font-weight:600;\">...</span></p></td></tr>\n"
 "<tr>\n"
+"<td></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">01-01-1990</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">10</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">10</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">18</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">18</span></p></td>\n"
-"<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td></tr>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td></tr>\n"
 "<tr>\n"
+"<td></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">02-01-1990</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">20</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">20</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">52</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">52</span></p></td>\n"
-"<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td></tr>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td></tr>\n"
 "<tr>\n"
+"<td></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">03-01-1990</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">15</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">15</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">22</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">22</span></p></td>\n"
-"<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td></tr>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td></tr>\n"
 "<tr>\n"
+"<td></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td>\n"
 "<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td>\n"
-"<td>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">...</span></p></td></tr></table>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8pt;\"></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:600;\">Note </span><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt;\">: It is recommended that the output folder path should not have any subfolders and files.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS Shell Dlg 2\'; font-size:8pt;\"></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; color:#5500ff;\">For more information, refer the </span><a href=\"../Documentation.html\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; text-decoration: underline; color:#5500ff;\">Documentation</span></a><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; color:#5500ff;\">.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">...</span></p></td></tr></table>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; font-weight:600;\">Note </span><span style=\" font-size:8pt;\">: It is recommended that the output folder path should not have any subfolders and files.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt; color:#5500ff;\">For more information, refer the </span><a href=\"../Documentation.html\"><span style=\" font-size:8pt; text-decoration: underline; color:#5500ff;\">Documentation</span></a><span style=\" font-size:8pt; color:#5500ff;\">.</span></p>\n"
 "<hr /></body></html>"))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_6), _translate("SPIUtilityDialogBase", "Log"))
-        item = self.tableWidget_3.horizontalHeaderItem(0)
-        item.setText(_translate("SPIUtilityDialogBase", "Date"))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_5), _translate("SPIUtilityDialogBase", "Values"))
         self.label_13.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
         self.label_14.setText(_translate("SPIUtilityDialogBase", "TextLabel"))
         item = self.tableWidget_2.horizontalHeaderItem(0)
